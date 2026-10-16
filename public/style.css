@@ -1,0 +1,87 @@
+/* Charte reprise du site seac-gf.fr (couleurs, polices Barlow Condensed / Roboto) */
+:root {
+    --vert: #01863b;
+    --vert-fonce: #00692a;
+    --rouge: #c62828;
+    --gris: #f6f6f6;
+    --bord: #e9eaeb;
+    --texte: #161615;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Roboto, system-ui, sans-serif;
+    color: var(--texte);
+    background: #fff;
+}
+
+h1, th, .bouton {
+    font-family: 'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+h1 { color: var(--vert-fonce); }
+
+header {
+    background: #fff;
+    padding: 12px 24px;
+    border-bottom: 4px solid var(--vert);
+}
+header .titre { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; text-decoration: none; }
+header .titre span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--vert-fonce);
+    text-transform: uppercase;
+    border-left: 2px solid var(--bord);
+    padding-left: 16px;
+}
+a { color: var(--vert-fonce); }
+
+main { max-width: 1000px; margin: 0 auto; padding: 16px; }
+
+.entete { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+.bouton {
+    background: var(--vert);
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+.bouton:hover { background: var(--vert-fonce); }
+
+.filtres { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; background: var(--gris); padding: 12px; border-radius: 8px; }
+.filtres label { display: flex; flex-direction: column; font-size: .9rem; }
+
+.alerte { background: #fdecea; color: var(--rouge); padding: 10px 14px; border-radius: 6px; font-weight: bold; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th, td { padding: 8px; border-bottom: 1px solid var(--bord); text-align: left; }
+th { background: var(--gris); }
+
+tr.retard td { background: #fdecea; }
+tr.retard td:first-child { border-left: 4px solid var(--rouge); }
+.badge-retard { background: var(--rouge); color: #fff; font-size: .75rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+
+.statut { padding: 2px 8px; border-radius: 10px; font-size: .85rem; }
+.statut-a_planifier { background: #fff3cd; }
+.statut-planifie    { background: #d6e9ff; }
+.statut-realise     { background: #d4edda; }
+
+.formulaire { display: flex; flex-direction: column; gap: 14px; max-width: 480px; }
+.formulaire label { display: flex; flex-direction: column; gap: 4px; }
+.formulaire input, .formulaire select, .formulaire textarea { padding: 6px; font-size: 1rem; }
+.erreur { color: var(--rouge); font-size: .85rem; }
+
+@media (max-width: 600px) {
+    table { font-size: .85rem; }
+    th, td { padding: 6px 4px; }
+}
