@@ -1,44 +1,47 @@
-# Suivi des audits — exercice de candidature SEAC
+# Suivi des audits – exercice de candidature SEAC
 
-Application web pour qu'un responsable suive les audits de ses usines :
-liste, filtres par site et statut, audits en retard mis en évidence, ajout et modification.
+Application web pour suivre les audits réalisés dans une dizaine d'usines.
 
-**Technologies :** PHP 8 (sans framework), MySQL/MariaDB via PDO, HTML/CSS. Architecture MVC.
+## Lancer le projet
 
-## Lancer le projet (WAMP)
+Prérequis : Node.js 18 ou plus.
 
-1. Placer le dossier dans `C:\wamp64\www\SiteSEAC` et démarrer WAMP.
-2. Dans phpMyAdmin, onglet **Importer** : importer `database/schema.sql`, puis `database/seed.sql`.
-3. Copier `config/config.example.php` en `config/config.php` et adapter les identifiants si besoin.
-4. Ouvrir <http://localhost/SiteSEAC/public/>
-
-Tests de la logique métier (sans base de données) :
-
-```
-php tests/test_audit.php
+```bash
+npm install     # installe Vue et Vite
+npm run dev     # lance le site sur http://localhost:5173
+npm test        # lance les tests de la règle "en retard"
 ```
 
-## Structure
+## Fonctionnalités
 
-```
-public/            point d'entrée (index.php) et CSS, seul dossier exposé au navigateur
-app/models/        accès aux données (requêtes SQL préparées) et règles métier
-app/controllers/   lit la requête, appelle le modèle, choisit la vue
-app/views/         gabarits HTML
-database/          schéma et données fictives
-tests/             tests de la logique (retard, validation)
-```
+- Liste des audits (site, type, date prévue, statut), triée par date
+- Filtres par site et par statut, plus un filtre « En retard »
+- Audits en retard visibles en un coup d'œil : ligne rouge, badge « En retard » et compteur cliquable en haut de la page
+- Ajout et modification d'un audit
 
-## Charte graphique
+## Technologies
 
-Couleurs et polices reprises du site seac-gf.fr. Logo © SEAC, utilisé uniquement dans le cadre de cette candidature.
+- **Vue.js 3** avec **Vite** (Vue est utilisé chez SEAC selon la fiche de poste)
+- Données sauvegardées dans le `localStorage` du navigateur : pas de serveur ni de base de données
+
+## Organisation du code (esprit MVC)
+
+| Fichier | Rôle |
+|---------|------|
+| `src/utils/audits.js` | Modèle : listes de référence et règles métier (date du jour, retard, format de date) |
+| `src/data/auditsInitiaux.js` | Données de test fictives, chargées au premier lancement |
+| `src/App.vue` (`<script setup>`) | Contrôleur : état, filtres, ajout et modification |
+| `src/App.vue` (`<template>`) | Vue : l'affichage HTML |
+| `tests/audits.test.js` | Tests de la logique métier |
 
 ## Hypothèses
 
-- **Date prévue** = date à laquelle l'audit doit avoir lieu, renseignée même pour un audit « à planifier » (échéance prévisionnelle).
-- **En retard** = date prévue dépassée et statut différent de « réalisé ». Ce n'est pas stocké en base, c'est calculé à l'affichage.
-- Un seul utilisateur (le responsable), donc pas de connexion pour cette version.
+- **En retard** = la date prévue est passée **et** l'audit n'est pas « Réalisé ». Un audit prévu aujourd'hui n'est pas encore en retard.
+- Un audit « À planifier » a quand même une date : c'est l'échéance avant laquelle il doit être organisé.
+- J'ai ajouté un champ **type** (Qualité, Sécurité, Environnement), qui n'était pas demandé mais me semble utile.
+- Un seul utilisateur (le responsable) : pas de connexion.
+- Les données restent dans le navigateur. Pour les réinitialiser, il faut vider le localStorage (outils de développement, onglet Application).
 
-## Pistes non réalisées
+## Journal d'usage de l'IA
 
-Vue calendrier, tableau de bord chiffré, alerte avant échéance, export de la liste.
+Voir [JOURNAL_IA.md](JOURNAL_IA.md).
