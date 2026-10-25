@@ -21,7 +21,7 @@ npm test        # lance les tests de la règle "en retard"
 
 ## Technologies
 
-- **Vue.js 3** avec **Vite** (Vue est utilisé chez SEAC selon la fiche de poste)
+- **Vue.js 3** avec **Vite**
 - Données sauvegardées dans le `localStorage` du navigateur : pas de serveur ni de base de données
 
 ## Organisation du code (esprit MVC)
